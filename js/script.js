@@ -22,13 +22,13 @@ const PROJECTS = [
   { title: 'Lugares que inspiram', category: 'Institucional', src: 'assets/images/coast.jpg', alt: 'Enseada com mar azul e vegetação', illustrative: true }
 ];
 const $ = (selector) => document.querySelector(selector);
-// SVG evita que celulares convertam setas em emojis coloridos.
-function createDirectionIcon(play = false) {
+// Ícone vetorial de reprodução para vídeos, sem depender de fontes ou emojis.
+function createPlayIcon() {
   const ns = 'http://www.w3.org/2000/svg';
   const icon = document.createElementNS(ns, 'svg');
   for (const [name, value] of Object.entries({ class: 'direction-icon', viewBox: '0 0 24 24', width: '20', height: '20', fill: 'none', stroke: 'currentColor', 'stroke-width': '1.8', 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'aria-hidden': 'true', focusable: 'false' })) icon.setAttribute(name, value);
   const path = document.createElementNS(ns, 'path');
-  path.setAttribute('d', play ? 'M8 5v14l11-7Z' : 'M7 17 17 7M7 7h10v10');
+  path.setAttribute('d', 'M8 5v14l11-7Z');
   icon.append(path);
   return icon;
 }
@@ -136,8 +136,11 @@ function renderProjects(category = 'Todos') {
     const frame = document.createElement('div'); frame.className = 'project-image';
     const img = document.createElement('img'); img.src = project.poster || project.src; img.alt = project.alt || project.title; img.loading = 'lazy'; img.width = 1000; img.height = 667;
     const badge = document.createElement('span'); badge.className = 'project-type'; badge.textContent = project.illustrative ? 'REFERÊNCIA VISUAL' : project.type === 'video' ? 'VÍDEO' : 'FOTOGRAFIA';
-    const arrow = document.createElement('span'); arrow.className = 'project-arrow'; arrow.append(createDirectionIcon(project.type === 'video')); arrow.setAttribute('aria-hidden', 'true');
-    frame.append(img, badge, arrow);
+    frame.append(img, badge);
+    if (project.type === 'video') {
+      const play = document.createElement('span'); play.className = 'project-arrow'; play.append(createPlayIcon()); play.setAttribute('aria-hidden', 'true');
+      frame.append(play);
+    }
     const caption = document.createElement('div'); caption.className = 'project-caption';
     const title = document.createElement('h3'); title.textContent = project.title;
     const label = document.createElement('p'); label.textContent = project.category.toUpperCase(); caption.append(title, label);
@@ -151,7 +154,7 @@ document.querySelectorAll('[data-filter]').forEach(button => button.addEventList
 }));
 renderProjects();
 if (CONFIG.showreel) {
-  const link = $('#showreel-link'); link.replaceChildren('Assistir ao vídeo de apresentação ', createDirectionIcon(true)); link.href = CONFIG.showreel;
+  const link = $('#showreel-link'); link.replaceChildren('Assistir ao vídeo de apresentação ', createPlayIcon()); link.href = CONFIG.showreel;
   $('#showreel-note').hidden = true;
   link.addEventListener('click', event => { event.preventDefault(); openMedia({ title: 'Veja o mundo pela nossa perspectiva.', type: 'video', src: CONFIG.showreel, poster: 'assets/images/coast.jpg' }, link); });
 }
