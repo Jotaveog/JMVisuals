@@ -7,3 +7,10 @@
 @media(max-width:380px){h1{font-size:38px}.hero .eyebrow{font-size:8px;letter-spacing:1.2px}.hero-actions{flex-direction:column;align-items:start}.hero-content{padding-bottom:145px}.hero-bottom{font-size:8px}.filters button{padding-inline:13px}.brand-name{font-size:11px}.contact-form{padding:20px}}
 @keyframes drift{from{transform:scale(1)}to{transform:scale(1.06)}}@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}@keyframes menu-in{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}.reveal.ready{opacity:1;transform:none}}
+/* Ícones vetoriais locais: aparência consistente, inclusive no iOS e Android. */
+.direction-icon{display:inline-block;width:1em;height:1em;min-width:1em;flex-shrink:0;vertical-align:-.12em}
+.brand-mark>span{display:block;width:22px;height:22px;line-height:1;top:-9px;right:-5px}
+.brand-mark .direction-icon{display:block;width:22px;height:22px}
+.outline-mark>span{display:inline-block;width:37px;height:37px;line-height:1;letter-spacing:0}
+.founder-sign{display:inline-flex;align-items:center;gap:8px}
+.button>.direction-icon{width:20px;height:20px}
